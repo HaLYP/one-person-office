@@ -1,0 +1,123 @@
+<!-- ============================================================
+     project-shell.html — Shared project chrome (fragment only)
+     一人公司办公系统 · 桌面端管理后台外壳
+     Inherited by: pages/{dashboard,projects,finance,clients,schedule}.html
+     Fragment rules: NO <!DOCTYPE>/<html>/<head>/<body>.
+     Leaf pages load Lucide + brand CSS in their own <head>.
+     ============================================================ -->
+
+<div class="flex h-screen overflow-hidden bg-[var(--color-background)]">
+
+  <!-- ============== LEFT SIDEBAR (240px, deep navy) ============== -->
+  <aside class="flex w-60 flex-col bg-[var(--color-primary-900)] text-white">
+
+    <!-- Brand zone -->
+    <div class="flex h-16 items-center gap-3 px-5 border-b border-white/5">
+      <div class="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--color-primary-400)]">
+        <i data-lucide="layers" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-h4 font-display tracking-wide text-white">SOLO OFFICE</span>
+        <span class="text-caption text-white/40">一人公司办公</span>
+      </div>
+    </div>
+
+    <!-- Primary nav -->
+    <!-- SLOT: activeNavItem — leaf pages set data-active="true" on the matching data-nav-key item.
+         Active state classes (added by leaf via data-active="true"): bg-[var(--color-primary-700)] text-white + 3px left accent bar.
+         Inactive default classes below are applied to every item; leaf pages only toggle data-active, not classes. -->
+    <nav class="flex flex-1 flex-col gap-1 px-3 py-4">
+      <a href="#" data-nav-key="dashboard" data-dom-id="nav-dashboard"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="layout-dashboard" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>工作台</span>
+      </a>
+      <a href="#" data-nav-key="projects" data-dom-id="nav-projects"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="folder-kanban" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>项目管理</span>
+      </a>
+      <a href="#" data-nav-key="finance" data-dom-id="nav-finance"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="wallet" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>财务概览</span>
+      </a>
+      <a href="#" data-nav-key="clients" data-dom-id="nav-clients"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="users" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>客户管理</span>
+      </a>
+      <a href="#" data-nav-key="schedule" data-dom-id="nav-schedule"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="calendar-days" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>日程安排</span>
+      </a>
+    </nav>
+
+    <!-- Active-state style guide (applied by leaf pages via data-active="true") -->
+    <!--
+      When data-active="true":
+        - container gets: bg-[var(--color-primary-700)] text-white
+        - a 3px left accent bar is shown via ::before (configured in leaf page CSS):
+          .relative[data-active="true"]::before { content:""; position:absolute; left:0; top:6px; bottom:6px; width:3px; border-radius:2px; background: var(--color-primary-400); }
+      The shell ships items WITHOUT data-active so no item is highlighted by default.
+    -->
+
+    <!-- Bottom user card -->
+    <div class="flex items-center gap-3 px-3 py-4 border-t border-white/5">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-400)] text-body-sm font-medium text-white">LZ</div>
+      <div class="flex min-w-0 flex-1 flex-col leading-tight">
+        <span class="truncate text-body-sm text-white">林泽宇</span>
+        <span class="truncate text-caption text-white/40">创始人 · 独立顾问</span>
+      </div>
+      <button type="button" aria-label="退出登录"
+              class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="log-out" class="h-4 w-4" style="stroke-width:1.5"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN COLUMN ============== -->
+  <div class="flex min-w-0 flex-1 flex-col">
+
+    <!-- Topbar (64px) -->
+    <header class="flex h-16 items-center justify-between px-8 bg-[var(--color-card)] border-b border-[var(--color-border)]">
+      <!-- Left: page title slot -->
+      <div class="flex min-w-0 items-center gap-3">
+        <!-- SLOT: pageTitle — leaf pages inject <h1 class="text-h2 text-foreground">页面标题</h1> here -->
+      </div>
+
+      <!-- Right: toolbar -->
+      <div class="flex flex-shrink-0 items-center gap-3">
+        <!-- Global search -->
+        <div class="relative">
+          <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+          <input type="text" placeholder="搜索项目、客户、发票…"
+                 class="h-9 w-64 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] py-2 pl-9 pr-3 text-body-sm text-[var(--color-foreground)] placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-ring)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]/30" />
+        </div>
+
+        <!-- Divider -->
+        <div class="h-6 w-px bg-[var(--color-border)]"></div>
+
+        <!-- Notification bell -->
+        <button type="button" aria-label="通知"
+                class="relative flex h-9 w-9 items-center justify-center rounded-md text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]">
+          <i data-lucide="bell" class="h-[18px] w-[18px]" style="stroke-width:1.5"></i>
+          <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--state-error)]"></span>
+        </button>
+
+        <!-- Avatar menu -->
+        <button type="button" aria-label="账户菜单"
+                class="flex items-center gap-1.5 rounded-md p-1 transition-colors hover:bg-[var(--color-muted)]">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary-600)] text-caption font-medium text-white">LZ</span>
+          <i data-lucide="chevron-down" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="min-h-full flex-1 overflow-y-auto bg-[var(--color-background)] p-8">
+      <!-- SLOT: pageContent — leaf pages inject their main content here -->
+    </main>
+  </div>
+</div>

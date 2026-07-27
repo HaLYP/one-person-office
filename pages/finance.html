@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>财务概览 · 一人公司办公系统</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   一人公司办公系统 — Brand CSS (商务质感)
+   ========================================================================== */
+
+:root {
+  /* —— 主色：深海军蓝 —— */
+  --color-primary-50:  #eef2f9;
+  --color-primary-100: #d6e0f0;
+  --color-primary-200: #adc1e1;
+  --color-primary-300: #7a9bcd;
+  --color-primary-400: #4a73b0;
+  --color-primary-500: #2f5697;
+  --color-primary-600: #1f3f7a;
+  --color-primary-700: #16305e;
+  --color-primary-800: #102547;
+  --color-primary-900: #0a1a33;
+
+  /* —— 中性面 —— */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f7f8fa;
+  --color-neutral-100: #eef0f4;
+  --color-neutral-200: #e2e6ed;
+  --color-neutral-300: #cdd4df;
+  --color-neutral-400: #9aa3b2;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  /* —— 语义状态色（仅语义状态使用） —— */
+  --state-success: #1f9d6e;
+  --state-warning: #d98a0a;
+  --state-error:   #d63b3b;
+  --state-info:    #2f5697;
+
+  /* —— 语义别名（fill-html-head.mjs 解析） —— */
+  --color-background:         #f7f8fa;
+  --color-foreground:         #1f2937;
+  --color-card:               #ffffff;
+  --color-card-foreground:    #1f2937;
+  --color-popover:            #ffffff;
+  --color-popover-foreground: #1f2937;
+  --color-primary:            #1f3f7a;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #f1f3f8;
+  --color-muted-foreground:   #6b7280;
+  --color-border:             #e2e6ed;
+  --color-input:              #e2e6ed;
+  --color-ring:               #2f5697;
+
+  /* —— 圆角尺度（克制） —— */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+
+  /* —— 前缀语义别名（fill-html-head.mjs 解析） —— */
+  --office-background:          #f7f8fa;
+  --office-foreground:          #1f2937;
+  --office-card:                #ffffff;
+  --office-card-foreground:     #1f2937;
+  --office-popover:             #ffffff;
+  --office-popover-foreground:  #1f2937;
+  --office-primary:             #1f3f7a;
+  --office-primary-foreground:  #ffffff;
+  --office-muted:               #f1f3f8;
+  --office-muted-foreground:    #6b7280;
+  --office-border:              #e2e6ed;
+  --office-input:               #e2e6ed;
+  --office-ring:                #2f5697;
+  --office-radius-sm:   4px;
+  --office-radius-md:   8px;
+  --office-radius-lg:   12px;
+
+  /* —— 阴影模型（静态面以边框为主，浮动层可用稍深阴影） —— */
+  --shadow-xs: 0 1px 2px rgba(16, 37, 71, 0.04);
+  --shadow-sm: 0 2px 6px rgba(16, 37, 71, 0.05);
+  --shadow-md: 0 8px 24px rgba(16, 37, 71, 0.10);
+  --shadow-lg: 0 16px 40px rgba(16, 37, 71, 0.14);
+
+  /* —— 排版系统 —— */
+  --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Consolas", monospace;
+}
+
+/* —— Dark mode（预留） —— */
+.dark {
+  --color-background:         #0a1a33;
+  --color-foreground:         #e2e6ed;
+  --color-card:               #102547;
+  --color-card-foreground:    #e2e6ed;
+  --color-popover:            #102547;
+  --color-popover-foreground: #e2e6ed;
+  --color-primary:            #4a73b0;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #16305e;
+  --color-muted-foreground:   #9aa3b2;
+  --color-border:             #1f3f7a;
+  --color-input:              #1f3f7a;
+  --color-ring:               #7a9bcd;
+}
+
+/* —— 字体类 —— */
+.font-display { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.01em; }
+.font-body    { font-family: var(--font-sans); font-weight: 400; }
+.font-mono    { font-family: var(--font-mono); }
+
+/* —— 标题层级 —— */
+.text-h1 { font-size: 28px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.text-h2 { font-size: 22px; line-height: 1.3;  font-weight: 600; letter-spacing: -0.005em; }
+.text-h3 { font-size: 17px; line-height: 1.35; font-weight: 600; }
+.text-h4 { font-size: 14px; line-height: 1.4;  font-weight: 600; }
+
+/* —— 正文层级 —— */
+.text-body    { font-size: 14px; line-height: 1.6; font-weight: 400; }
+.text-body-sm { font-size: 13px; line-height: 1.55; font-weight: 400; }
+.text-caption { font-size: 12px; line-height: 1.5;  font-weight: 400; color: var(--color-muted-foreground); }
+.text-overline { font-size: 11px; line-height: 1.4; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted-foreground); }
+
+/* —— 颜色工具类 —— */
+.text-primary         { color: var(--color-primary); }
+.text-primary-foreground { color: var(--color-primary-foreground); }
+.text-muted-foreground { color: var(--color-muted-foreground); }
+.text-foreground       { color: var(--color-foreground); }
+
+.bg-primary           { background-color: var(--color-primary); }
+.bg-primary-foreground{ background-color: var(--color-primary-foreground); }
+.bg-card              { background-color: var(--color-card); }
+.bg-muted             { background-color: var(--color-muted); }
+.bg-background        { background-color: var(--color-background); }
+
+.border-border        { border-color: var(--color-border); }
+.ring-ring            { --tw-ring-color: var(--color-ring); }
+
+/* —— 状态文字色 —— */
+.text-success { color: var(--state-success); }
+.text-warning { color: var(--state-warning); }
+.text-error   { color: var(--state-error); }
+.text-info    { color: var(--state-info); }
+
+.bg-success-soft { background-color: rgba(31, 157, 110, 0.10); }
+.bg-warning-soft { background-color: rgba(217, 138, 10, 0.12); }
+.bg-error-soft   { background-color: rgba(214, 59, 59, 0.10); }
+.bg-info-soft    { background-color: rgba(47, 86, 151, 0.10); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--office-background);
+    --color-foreground: var(--office-foreground);
+    --color-card: var(--office-card);
+    --color-card-foreground: var(--office-card-foreground);
+    --color-popover: var(--office-popover);
+    --color-popover-foreground: var(--office-popover-foreground);
+    --color-primary: var(--office-primary);
+    --color-primary-foreground: var(--office-primary-foreground);
+    --color-muted: var(--office-muted);
+    --color-muted-foreground: var(--office-muted-foreground);
+    --color-border: var(--office-border);
+    --color-input: var(--office-input);
+    --color-ring: var(--office-ring);
+    --radius-sm: var(--office-radius-sm);
+    --radius-md: var(--office-radius-md);
+    --radius-lg: var(--office-radius-lg);
+  }
+  @layer base {
+    body { background: var(--office-background); color: var(--office-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--office-background); }
+      .text-background { color: var(--office-background); }
+      .border-background { border-color: var(--office-background); }
+      .ring-background { --tw-ring-color: var(--office-background); }
+      .bg-foreground { background-color: var(--office-foreground); }
+      .text-foreground { color: var(--office-foreground); }
+      .border-foreground { border-color: var(--office-foreground); }
+      .ring-foreground { --tw-ring-color: var(--office-foreground); }
+      .bg-card { background-color: var(--office-card); }
+      .text-card { color: var(--office-card); }
+      .border-card { border-color: var(--office-card); }
+      .ring-card { --tw-ring-color: var(--office-card); }
+      .bg-card-foreground { background-color: var(--office-card-foreground); }
+      .text-card-foreground { color: var(--office-card-foreground); }
+      .border-card-foreground { border-color: var(--office-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--office-card-foreground); }
+      .bg-popover { background-color: var(--office-popover); }
+      .text-popover { color: var(--office-popover); }
+      .border-popover { border-color: var(--office-popover); }
+      .ring-popover { --tw-ring-color: var(--office-popover); }
+      .bg-popover-foreground { background-color: var(--office-popover-foreground); }
+      .text-popover-foreground { color: var(--office-popover-foreground); }
+      .border-popover-foreground { border-color: var(--office-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--office-popover-foreground); }
+      .bg-primary { background-color: var(--office-primary); }
+      .text-primary { color: var(--office-primary); }
+      .border-primary { border-color: var(--office-primary); }
+      .ring-primary { --tw-ring-color: var(--office-primary); }
+      .bg-primary-foreground { background-color: var(--office-primary-foreground); }
+      .text-primary-foreground { color: var(--office-primary-foreground); }
+      .border-primary-foreground { border-color: var(--office-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--office-primary-foreground); }
+      .bg-muted { background-color: var(--office-muted); }
+      .text-muted { color: var(--office-muted); }
+      .border-muted { border-color: var(--office-muted); }
+      .ring-muted { --tw-ring-color: var(--office-muted); }
+      .bg-muted-foreground { background-color: var(--office-muted-foreground); }
+      .text-muted-foreground { color: var(--office-muted-foreground); }
+      .border-muted-foreground { border-color: var(--office-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--office-muted-foreground); }
+      .bg-border { background-color: var(--office-border); }
+      .text-border { color: var(--office-border); }
+      .border-border { border-color: var(--office-border); }
+      .ring-border { --tw-ring-color: var(--office-border); }
+      .bg-input { background-color: var(--office-input); }
+      .text-input { color: var(--office-input); }
+      .border-input { border-color: var(--office-input); }
+      .ring-input { --tw-ring-color: var(--office-input); }
+      .bg-ring { background-color: var(--office-ring); }
+      .text-ring { color: var(--office-ring); }
+      .border-ring { border-color: var(--office-ring); }
+      .ring-ring { --tw-ring-color: var(--office-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <main>
+<div class="flex h-screen overflow-hidden bg-[var(--color-background)]">
+
+  <!-- ============== LEFT SIDEBAR (240px, deep navy) ============== -->
+  <aside class="flex w-60 flex-col bg-[var(--color-primary-900)] text-white">
+
+    <!-- Brand zone -->
+    <div class="flex h-16 items-center gap-3 px-5 border-b border-white/5">
+      <div class="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--color-primary-400)]">
+        <i data-lucide="layers" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-h4 font-display tracking-wide text-white">SOLO OFFICE</span>
+        <span class="text-caption text-white/40">一人公司办公</span>
+      </div>
+    </div>
+
+    <!-- Primary nav -->
+    <nav class="flex flex-1 flex-col gap-1 px-3 py-4">
+      <a href="#" data-nav-key="dashboard" data-dom-id="nav-dashboard"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="layout-dashboard" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>工作台</span>
+      </a>
+      <a href="#" data-nav-key="projects" data-dom-id="nav-projects"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="folder-kanban" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>项目管理</span>
+      </a>
+      <a href="#" data-nav-key="finance" data-dom-id="nav-finance" data-active="true"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="wallet" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>财务概览</span>
+      </a>
+      <a href="#" data-nav-key="clients" data-dom-id="nav-clients"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="users" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>客户管理</span>
+      </a>
+      <a href="#" data-nav-key="schedule" data-dom-id="nav-schedule"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="calendar-days" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>日程安排</span>
+      </a>
+    </nav>
+
+    <!-- Bottom user card -->
+    <div class="flex items-center gap-3 px-3 py-4 border-t border-white/5">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-400)] text-body-sm font-medium text-white">LZ</div>
+      <div class="flex min-w-0 flex-1 flex-col leading-tight">
+        <span class="truncate text-body-sm text-white">林泽宇</span>
+        <span class="truncate text-caption text-white/40">创始人 · 独立顾问</span>
+      </div>
+      <button type="button" aria-label="退出登录"
+              class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="log-out" class="h-4 w-4" style="stroke-width:1.5"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN COLUMN ============== -->
+  <div class="flex min-w-0 flex-1 flex-col">
+
+    <!-- Topbar (64px) -->
+    <header class="flex h-16 items-center justify-between px-8 bg-[var(--color-card)] border-b border-[var(--color-border)]">
+      <!-- Left: page title slot -->
+      <div class="flex min-w-0 items-center gap-3">
+        <!-- SLOT: pageTitle — breadcrumb filled -->
+        <div class="flex items-center gap-2 text-[var(--color-muted-foreground)] text-caption">
+          <span>办公</span>
+          <i data-lucide="chevron-right" class="h-3 w-3" style="stroke-width:1.5"></i>
+          <span class="text-[var(--color-foreground)]">财务概览</span>
+        </div>
+      </div>
+
+      <!-- Right: toolbar -->
+      <div class="flex flex-shrink-0 items-center gap-3">
+        <!-- Global search -->
+        <div class="relative">
+          <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+          <input type="text" placeholder="搜索项目、客户、发票…"
+                 class="h-9 w-64 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] py-2 pl-9 pr-3 text-body-sm text-[var(--color-foreground)] placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-ring)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]/30" />
+        </div>
+
+        <!-- Divider -->
+        <div class="h-6 w-px bg-[var(--color-border)]"></div>
+
+        <!-- Notification bell -->
+        <button type="button" aria-label="通知"
+                class="relative flex h-9 w-9 items-center justify-center rounded-md text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]">
+          <i data-lucide="bell" class="h-[18px] w-[18px]" style="stroke-width:1.5"></i>
+          <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--state-error)]"></span>
+        </button>
+
+        <!-- Avatar menu -->
+        <button type="button" aria-label="账户菜单"
+                class="flex items-center gap-1.5 rounded-md p-1 transition-colors hover:bg-[var(--color-muted)]">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary-600)] text-caption font-medium text-white">LZ</span>
+          <i data-lucide="chevron-down" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <div class="min-h-full flex-1 overflow-y-auto bg-[var(--color-background)] p-8">
+      <!-- SLOT: pageContent — finance overview -->
+
+      <!-- Toolbar row: month switcher + actions -->
+      <div class="mb-6 flex items-center justify-between">
+        <!-- Left: month switcher -->
+        <div class="flex items-center gap-2">
+          <button type="button" aria-label="上个月"
+                  class="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">
+            <i data-lucide="chevron-left" class="h-4 w-4" style="stroke-width:1.5"></i>
+          </button>
+          <span class="min-w-[120px] text-center text-body font-medium text-[var(--color-foreground)]">2026 年 7 月</span>
+          <button type="button" aria-label="下个月"
+                  class="flex h-9 w-9 items-center justify-center rounded-md border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">
+            <i data-lucide="chevron-right" class="h-4 w-4" style="stroke-width:1.5"></i>
+          </button>
+        </div>
+        <!-- Right: actions -->
+        <div class="flex gap-3">
+          <button type="button"
+                  class="inline-flex items-center gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2 text-body-sm font-medium text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">
+            <i data-lucide="calendar" class="h-4 w-4" style="stroke-width:1.5"></i>本月
+          </button>
+          <button type="button"
+                  class="inline-flex items-center gap-2 rounded-md bg-[var(--color-primary)] px-4 py-2 text-body-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-700)]">
+            <i data-lucide="download" class="h-4 w-4" style="stroke-width:1.5"></i>导出报表
+          </button>
+        </div>
+      </div>
+
+      <!-- Summary cards row (3 columns) -->
+      <div class="mb-6 grid grid-cols-3 gap-5">
+        <!-- Card 1: 本月收入 -->
+        <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-caption">本月收入</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--state-success)]/10">
+              <i data-lucide="arrow-down-left" class="h-[18px] w-[18px] text-[var(--state-success)]" style="stroke-width:1.5"></i>
+            </span>
+          </div>
+          <div class="mt-4 text-[32px] font-semibold leading-none text-[var(--color-foreground)]">
+            <span class="text-[var(--color-muted-foreground)]">¥</span> 128,540
+          </div>
+          <div class="mt-4 flex items-center gap-1.5">
+            <i data-lucide="trending-up" class="h-3.5 w-3.5 text-[var(--state-success)]" style="stroke-width:1.5"></i>
+            <span class="text-caption font-medium text-[var(--state-success)]">18.2%</span>
+            <span class="text-caption">较上月</span>
+          </div>
+        </div>
+        <!-- Card 2: 本月支出 -->
+        <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-caption">本月支出</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--state-error)]/10">
+              <i data-lucide="arrow-up-right" class="h-[18px] w-[18px] text-[var(--state-error)]" style="stroke-width:1.5"></i>
+            </span>
+          </div>
+          <div class="mt-4 text-[32px] font-semibold leading-none text-[var(--color-foreground)]">
+            <span class="text-[var(--color-muted-foreground)]">¥</span> 42,180
+          </div>
+          <div class="mt-4 flex items-center gap-1.5">
+            <i data-lucide="trending-down" class="h-3.5 w-3.5 text-[var(--state-success)]" style="stroke-width:1.5"></i>
+            <span class="text-caption font-medium text-[var(--state-success)]">5.4%</span>
+            <span class="text-caption">较上月</span>
+          </div>
+        </div>
+        <!-- Card 3: 净利润 -->
+        <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div class="flex items-center justify-between">
+            <span class="text-caption">净利润</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+              <i data-lucide="wallet" class="h-[18px] w-[18px] text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+            </span>
+          </div>
+          <div class="mt-4 text-[32px] font-semibold leading-none text-[var(--color-foreground)]">
+            <span class="text-[var(--color-muted-foreground)]">¥</span> 86,360
+          </div>
+          <div class="mt-4 flex items-center gap-1.5">
+            <span class="text-caption text-[var(--color-muted-foreground)]">利润率 67.2%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue vs Expense bar chart card -->
+      <div class="mb-6 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-h3 text-[var(--color-foreground)]">收支对比</h3>
+          <div class="flex items-center gap-4">
+            <span class="flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-sm bg-[var(--color-primary)]"></span>
+              <span class="text-caption">收入</span>
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="h-2 w-2 rounded-sm bg-[var(--color-neutral-300)]"></span>
+              <span class="text-caption">支出</span>
+            </span>
+          </div>
+        </div>
+        <div class="relative" style="height:220px">
+          <canvas id="financeChart" height="220"></canvas>
+        </div>
+      </div>
+
+      <!-- Transactions table card -->
+      <div class="mb-6 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+        <div class="mb-2 flex items-center justify-between">
+          <h3 class="text-h3 text-[var(--color-foreground)]">收支明细</h3>
+          <a href="#" class="text-caption font-medium text-[var(--color-primary)] hover:underline">查看全部</a>
+        </div>
+        <table class="w-full">
+          <thead class="border-b border-[var(--color-border)]">
+            <tr>
+              <th class="py-3 px-2 text-left text-caption font-medium uppercase tracking-wide text-[var(--color-muted-foreground)]">日期</th>
+              <th class="py-3 px-2 text-left text-caption font-medium uppercase tracking-wide text-[var(--color-muted-foreground)]">类型</th>
+              <th class="py-3 px-2 text-left text-caption font-medium uppercase tracking-wide text-[var(--color-muted-foreground)]">描述</th>
+              <th class="py-3 px-2 text-right text-caption font-medium uppercase tracking-wide text-[var(--color-muted-foreground)]">金额</th>
+              <th class="py-3 px-2 text-right text-caption font-medium uppercase tracking-wide text-[var(--color-muted-foreground)]">状态</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/26</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">收入</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">toB 服饰外贸 · 7 月货款</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--state-success)]">¥ 18,000</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">已到账</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/24</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-error-soft px-2 py-0.5 text-caption font-medium text-[var(--state-error)]">支出</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">设计软件订阅</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--color-foreground)]">¥ -1,280</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-muted px-2 py-0.5 text-caption font-medium text-[var(--color-muted-foreground)]">已支付</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/22</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">收入</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">小红书种草带货 · 分佣</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--state-success)]">¥ 12,000</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">已到账</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/20</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-error-soft px-2 py-0.5 text-caption font-medium text-[var(--state-error)]">支出</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">云服务器费用</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--color-foreground)]">¥ -680</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-muted px-2 py-0.5 text-caption font-medium text-[var(--color-muted-foreground)]">已支付</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/18</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">收入</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">抖音韩漫短视频 · 流量分成</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--state-success)]">¥ 8,000</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-warning-soft px-2 py-0.5 text-caption font-medium text-[var(--state-warning)]">待入账</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/15</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-error-soft px-2 py-0.5 text-caption font-medium text-[var(--state-error)]">支出</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">外包翻译费</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--color-foreground)]">¥ -2,400</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-muted px-2 py-0.5 text-caption font-medium text-[var(--color-muted-foreground)]">已支付</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/12</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">收入</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">数据分析 · 经营周报服务费</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--state-success)]">¥ 20,000</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-success-soft px-2 py-0.5 text-caption font-medium text-[var(--state-success)]">已到账</span></td>
+            </tr>
+            <tr class="border-b border-[var(--color-border)] transition-colors last:border-0 hover:bg-[var(--color-muted)]/50">
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">07/08</td>
+              <td class="py-3.5 px-2"><span class="rounded-sm bg-error-soft px-2 py-0.5 text-caption font-medium text-[var(--state-error)]">支出</span></td>
+              <td class="py-3.5 px-2 text-body-sm text-[var(--color-foreground)]">办公耗材采购</td>
+              <td class="py-3.5 px-2 text-right text-body-sm font-medium text-[var(--color-foreground)]">¥ -520</td>
+              <td class="py-3.5 px-2 text-right"><span class="rounded-sm bg-muted px-2 py-0.5 text-caption font-medium text-[var(--color-muted-foreground)]">已支付</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pending invoices card -->
+      <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+        <div class="mb-2 flex items-center justify-between">
+          <h3 class="text-h3 text-[var(--color-foreground)]">待开发票</h3>
+          <span class="rounded-sm bg-warning-soft px-2 py-0.5 text-caption font-medium text-[var(--state-warning)]">4 张</span>
+        </div>
+        <div>
+          <!-- Invoice 1: toB 服饰外贸 (逾期) -->
+          <div class="flex items-center justify-between border-b border-[var(--color-border)] py-3 last:border-0">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-md bg-warning-soft">
+                <i data-lucide="file-text" class="h-4 w-4 text-[var(--state-warning)]" style="stroke-width:1.5"></i>
+              </span>
+              <div class="flex flex-col leading-tight">
+                <span class="text-body-sm font-medium text-[var(--color-foreground)]">toB 服饰外贸</span>
+                <span class="text-caption">发票号 INV-2026-014</span>
+              </div>
+            </div>
+            <span class="text-body-sm font-medium text-[var(--color-foreground)]">¥ 24,000</span>
+            <div class="flex items-center gap-3">
+              <span class="text-caption text-[var(--state-error)]">逾期 3 天</span>
+              <button type="button"
+                      class="rounded-md border border-[var(--color-border)] px-3 py-1 text-caption text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">开具</button>
+            </div>
+          </div>
+          <!-- Invoice 2: 小红书种草带货 -->
+          <div class="flex items-center justify-between border-b border-[var(--color-border)] py-3 last:border-0">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-md bg-warning-soft">
+                <i data-lucide="file-text" class="h-4 w-4 text-[var(--state-warning)]" style="stroke-width:1.5"></i>
+              </span>
+              <div class="flex flex-col leading-tight">
+                <span class="text-body-sm font-medium text-[var(--color-foreground)]">小红书种草带货</span>
+                <span class="text-caption">发票号 INV-2026-015</span>
+              </div>
+            </div>
+            <span class="text-body-sm font-medium text-[var(--color-foreground)]">¥ 16,000</span>
+            <div class="flex items-center gap-3">
+              <span class="text-caption text-[var(--state-warning)]">待开具</span>
+              <button type="button"
+                      class="rounded-md border border-[var(--color-border)] px-3 py-1 text-caption text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">开具</button>
+            </div>
+          </div>
+          <!-- Invoice 3: 抖音韩漫短视频 -->
+          <div class="flex items-center justify-between border-b border-[var(--color-border)] py-3 last:border-0">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-md bg-warning-soft">
+                <i data-lucide="file-text" class="h-4 w-4 text-[var(--state-warning)]" style="stroke-width:1.5"></i>
+              </span>
+              <div class="flex flex-col leading-tight">
+                <span class="text-body-sm font-medium text-[var(--color-foreground)]">抖音韩漫短视频</span>
+                <span class="text-caption">发票号 INV-2026-016</span>
+              </div>
+            </div>
+            <span class="text-body-sm font-medium text-[var(--color-foreground)]">¥ 32,000</span>
+            <div class="flex items-center gap-3">
+              <span class="text-caption text-[var(--state-warning)]">待开具</span>
+              <button type="button"
+                      class="rounded-md border border-[var(--color-border)] px-3 py-1 text-caption text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">开具</button>
+            </div>
+          </div>
+          <!-- Invoice 4: 数据分析 -->
+          <div class="flex items-center justify-between border-b border-[var(--color-border)] py-3 last:border-0">
+            <div class="flex items-center gap-3">
+              <span class="flex h-8 w-8 items-center justify-center rounded-md bg-warning-soft">
+                <i data-lucide="file-text" class="h-4 w-4 text-[var(--state-warning)]" style="stroke-width:1.5"></i>
+              </span>
+              <div class="flex flex-col leading-tight">
+                <span class="text-body-sm font-medium text-[var(--color-foreground)]">数据分析</span>
+                <span class="text-caption">发票号 INV-2026-017</span>
+              </div>
+            </div>
+            <span class="text-body-sm font-medium text-[var(--color-foreground)]">¥ 6,000</span>
+            <div class="flex items-center gap-3">
+              <span class="text-caption text-[var(--state-warning)]">待开具</span>
+              <button type="button"
+                      class="rounded-md border border-[var(--color-border)] px-3 py-1 text-caption text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">开具</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+    </main>
+    <!-- Active nav style (sidebar accent bar + highlight) -->
+    <style>
+      aside nav a[data-active="true"] {
+        background-color: var(--color-primary-700);
+        color: #ffffff;
+      }
+      aside nav a[data-active="true"]::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 6px;
+        bottom: 6px;
+        width: 3px;
+        border-radius: 2px;
+        background: var(--color-primary-400);
+      }
+    </style>
+    <script>
+      lucide.createIcons();
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof Chart !== 'undefined') {
+          var ctx = document.getElementById('financeChart');
+          if (ctx) {
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: ['2月', '3月', '4月', '5月', '6月', '7月'],
+                datasets: [
+                  {
+                    label: '收入',
+                    data: [92000, 105000, 88000, 112000, 118000, 128540],
+                    backgroundColor: '#1f3f7a',
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                  },
+                  {
+                    label: '支出',
+                    data: [38000, 41000, 45000, 39000, 44000, 42180],
+                    backgroundColor: '#cdd4df',
+                    borderRadius: 4,
+                    barPercentage: 0.6
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { display: false },
+                  tooltip: {
+                    callbacks: {
+                      label: function (c) {
+                        return c.dataset.label + ': ¥ ' + c.parsed.y.toLocaleString('zh-CN');
+                      }
+                    }
+                  }
+                },
+                scales: {
+                  x: {
+                    grid: { display: false },
+                    ticks: { color: '#6b7280' }
+                  },
+                  y: {
+                    beginAtZero: true,
+                    grid: { color: '#e2e6ed' },
+                    ticks: {
+                      color: '#6b7280',
+                      callback: function (v) { return '¥' + (v / 1000) + 'k'; }
+                    }
+                  }
+                }
+              }
+            });
+          }
+        }
+      });
+    </script>
+</body>
+</html>

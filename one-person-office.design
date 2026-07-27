@@ -1,0 +1,267 @@
+{
+  "data": [
+    {
+      "id": "page-dashboard",
+      "title": "工作台",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 0,
+        "y": 377,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/dashboard.html",
+        "interactions": [
+          {
+            "domId": "nav-projects",
+            "targetPageId": "page-projects",
+            "hideEdge": true,
+            "transitionLabel": "项目管理"
+          },
+          {
+            "domId": "nav-finance",
+            "targetPageId": "page-finance",
+            "hideEdge": true,
+            "transitionLabel": "财务概览"
+          },
+          {
+            "domId": "nav-clients",
+            "targetPageId": "page-clients",
+            "hideEdge": true,
+            "transitionLabel": "客户管理"
+          },
+          {
+            "domId": "nav-schedule",
+            "targetPageId": "page-schedule",
+            "hideEdge": true,
+            "transitionLabel": "日程安排"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-projects",
+      "title": "项目管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 0,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/projects.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true,
+            "transitionLabel": "工作台"
+          },
+          {
+            "domId": "nav-finance",
+            "targetPageId": "page-finance",
+            "hideEdge": true,
+            "transitionLabel": "财务概览"
+          },
+          {
+            "domId": "nav-clients",
+            "targetPageId": "page-clients",
+            "hideEdge": true,
+            "transitionLabel": "客户管理"
+          },
+          {
+            "domId": "nav-schedule",
+            "targetPageId": "page-schedule",
+            "hideEdge": true,
+            "transitionLabel": "日程安排"
+          },
+          {
+            "domId": "cta-workflows",
+            "targetPageId": "page-workflows",
+            "transitionLabel": "查看工作流程"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-workflows",
+      "title": "工作流程",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 620,
+        "y": 0,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/workflows.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true,
+            "transitionLabel": "工作台"
+          },
+          {
+            "domId": "nav-projects",
+            "targetPageId": "page-projects",
+            "hideEdge": true,
+            "transitionLabel": "项目管理"
+          },
+          {
+            "domId": "nav-finance",
+            "targetPageId": "page-finance",
+            "hideEdge": true,
+            "transitionLabel": "财务概览"
+          },
+          {
+            "domId": "nav-clients",
+            "targetPageId": "page-clients",
+            "hideEdge": true,
+            "transitionLabel": "客户管理"
+          },
+          {
+            "domId": "nav-schedule",
+            "targetPageId": "page-schedule",
+            "hideEdge": true,
+            "transitionLabel": "日程安排"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-finance",
+      "title": "财务概览",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 620,
+        "y": 377,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/finance.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true,
+            "transitionLabel": "工作台"
+          },
+          {
+            "domId": "nav-projects",
+            "targetPageId": "page-projects",
+            "hideEdge": true,
+            "transitionLabel": "项目管理"
+          },
+          {
+            "domId": "nav-clients",
+            "targetPageId": "page-clients",
+            "hideEdge": true,
+            "transitionLabel": "客户管理"
+          },
+          {
+            "domId": "nav-schedule",
+            "targetPageId": "page-schedule",
+            "hideEdge": true,
+            "transitionLabel": "日程安排"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-clients",
+      "title": "客户管理",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 1240,
+        "y": 377,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/clients.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true,
+            "transitionLabel": "工作台"
+          },
+          {
+            "domId": "nav-projects",
+            "targetPageId": "page-projects",
+            "hideEdge": true,
+            "transitionLabel": "项目管理"
+          },
+          {
+            "domId": "nav-finance",
+            "targetPageId": "page-finance",
+            "hideEdge": true,
+            "transitionLabel": "财务概览"
+          },
+          {
+            "domId": "nav-schedule",
+            "targetPageId": "page-schedule",
+            "hideEdge": true,
+            "transitionLabel": "日程安排"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page-schedule",
+      "title": "日程安排",
+      "type": "page",
+      "version": 1,
+      "createdAt": 1785128160000,
+      "canvasData": {
+        "x": 1860,
+        "y": 377,
+        "group": 0
+      },
+      "devMetadata": {
+        "htmlSrc": "pages/schedule.html",
+        "interactions": [
+          {
+            "domId": "nav-dashboard",
+            "targetPageId": "page-dashboard",
+            "hideEdge": true,
+            "transitionLabel": "工作台"
+          },
+          {
+            "domId": "nav-projects",
+            "targetPageId": "page-projects",
+            "hideEdge": true,
+            "transitionLabel": "项目管理"
+          },
+          {
+            "domId": "nav-finance",
+            "targetPageId": "page-finance",
+            "hideEdge": true,
+            "transitionLabel": "财务概览"
+          },
+          {
+            "domId": "nav-clients",
+            "targetPageId": "page-clients",
+            "hideEdge": true,
+            "transitionLabel": "客户管理"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "autoLayout": true,
+    "deviceType": "desktop",
+    "projectName": "一人公司办公系统",
+    "visualEditorEnabled": true
+  }
+}

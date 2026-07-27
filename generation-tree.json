@@ -1,0 +1,123 @@
+{
+  "root": {
+    "nodeId": "gen-project-shell",
+    "kind": "project-shell",
+    "pageIds": ["page-dashboard", "page-projects", "page-workflows", "page-finance", "page-clients", "page-schedule"],
+    "output": "partials/project-shell.html",
+    "sharedRegions": [
+      "根容器与背景",
+      "左侧固定侧边栏（品牌区、主导航、底部用户区）",
+      "顶部应用栏（页面标题槽、搜索、通知、用户菜单）",
+      "主内容区容器与内边距",
+      "字体栈、颜色系统、圆角尺度、阴影模型、CTA 风格、对齐节奏"
+    ],
+    "privateRegions": [],
+    "mutableSlots": ["activeNavItem", "pageTitle", "pageBreadcrumb"],
+    "status": "generated",
+    "children": [
+      {
+        "nodeId": "gen-page-dashboard",
+        "kind": "page-leaf",
+        "pageIds": ["page-dashboard"],
+        "output": "pages/dashboard.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：工作台",
+          "问候语与日期",
+          "4 张 KPI 摘要卡（今日待办、本周营收、活跃项目、待回款）",
+          "营收趋势折线图",
+          "项目进度列表",
+          "近期活动时间线"
+        ],
+        "mutableSlots": ["activeNavItem=dashboard", "pageTitle=工作台"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-projects",
+        "kind": "page-leaf",
+        "pageIds": ["page-projects"],
+        "output": "pages/projects.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：项目管理",
+          "项目状态筛选标签栏（全部、进行中、已交付、已归档）",
+          "新建项目按钮与搜索框",
+          "项目卡片网格（名称、客户、进度、截止日期、状态徽标）",
+          "每个项目卡的详情/进度条"
+        ],
+        "mutableSlots": ["activeNavItem=projects", "pageTitle=项目管理"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-workflows",
+        "kind": "page-leaf",
+        "pageIds": ["page-workflows"],
+        "output": "pages/workflows.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：工作流程",
+          "4 条业务线工作流卡片（toB服饰外贸、小红书运营、抖音韩漫、数据分析）",
+          "toB服饰外贸「开发客户」步骤展开为详细子步骤（Google搜索、LinkedIn、行业展会、B2B平台、海关数据、黄页+邮件、社交媒体、老客户转介绍）",
+          "其它三条业务线工作流主步骤概述"
+        ],
+        "mutableSlots": ["activeNavItem=projects", "pageTitle=工作流程"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-finance",
+        "kind": "page-leaf",
+        "pageIds": ["page-finance"],
+        "output": "pages/finance.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：财务概览",
+          "月份切换器与导出按钮",
+          "3 张财务摘要卡（本月收入、本月支出、净利润）",
+          "收支对比柱状图",
+          "收支明细表格（日期、类型、描述、金额、状态）",
+          "待开发票清单"
+        ],
+        "mutableSlots": ["activeNavItem=finance", "pageTitle=财务概览"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-clients",
+        "kind": "page-leaf",
+        "pageIds": ["page-clients"],
+        "output": "pages/clients.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：客户管理",
+          "搜索框与新增客户按钮",
+          "客户列表表格（公司、联系人、邮箱、累计合作金额、状态）",
+          "客户标签徽标",
+          "分页控件"
+        ],
+        "mutableSlots": ["activeNavItem=clients", "pageTitle=客户管理"],
+        "status": "planned",
+        "children": []
+      },
+      {
+        "nodeId": "gen-page-schedule",
+        "kind": "page-leaf",
+        "pageIds": ["page-schedule"],
+        "output": "pages/schedule.html",
+        "sharedRegions": [],
+        "privateRegions": [
+          "页面标题槽填充：日程安排",
+          "周视图日期切换器（今日、本周、下周按钮）",
+          "周历网格（7 列 × 时间段）",
+          "事件块（颜色区分会议、截止、提醒）",
+          "今日待办侧栏清单"
+        ],
+        "mutableSlots": ["activeNavItem=schedule", "pageTitle=日程安排"],
+        "status": "planned",
+        "children": []
+      }
+    ]
+  }
+}

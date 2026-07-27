@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目管理 · 一人公司办公系统</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   一人公司办公系统 — Brand CSS (商务质感)
+   ========================================================================== */
+
+:root {
+  /* —— 主色：深海军蓝 —— */
+  --color-primary-50:  #eef2f9;
+  --color-primary-100: #d6e0f0;
+  --color-primary-200: #adc1e1;
+  --color-primary-300: #7a9bcd;
+  --color-primary-400: #4a73b0;
+  --color-primary-500: #2f5697;
+  --color-primary-600: #1f3f7a;
+  --color-primary-700: #16305e;
+  --color-primary-800: #102547;
+  --color-primary-900: #0a1a33;
+
+  /* —— 中性面 —— */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f7f8fa;
+  --color-neutral-100: #eef0f4;
+  --color-neutral-200: #e2e6ed;
+  --color-neutral-300: #cdd4df;
+  --color-neutral-400: #9aa3b2;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  /* —— 语义状态色（仅语义状态使用） —— */
+  --state-success: #1f9d6e;
+  --state-warning: #d98a0a;
+  --state-error:   #d63b3b;
+  --state-info:    #2f5697;
+
+  /* —— 语义别名（fill-html-head.mjs 解析） —— */
+  --color-background:         #f7f8fa;
+  --color-foreground:         #1f2937;
+  --color-card:               #ffffff;
+  --color-card-foreground:    #1f2937;
+  --color-popover:            #ffffff;
+  --color-popover-foreground: #1f2937;
+  --color-primary:            #1f3f7a;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #f1f3f8;
+  --color-muted-foreground:   #6b7280;
+  --color-border:             #e2e6ed;
+  --color-input:              #e2e6ed;
+  --color-ring:               #2f5697;
+
+  /* —— 圆角尺度（克制） —— */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+
+  /* —— 前缀语义别名（fill-html-head.mjs 解析） —— */
+  --office-background:          #f7f8fa;
+  --office-foreground:          #1f2937;
+  --office-card:                #ffffff;
+  --office-card-foreground:     #1f2937;
+  --office-popover:             #ffffff;
+  --office-popover-foreground:  #1f2937;
+  --office-primary:             #1f3f7a;
+  --office-primary-foreground:  #ffffff;
+  --office-muted:               #f1f3f8;
+  --office-muted-foreground:    #6b7280;
+  --office-border:              #e2e6ed;
+  --office-input:               #e2e6ed;
+  --office-ring:                #2f5697;
+  --office-radius-sm:   4px;
+  --office-radius-md:   8px;
+  --office-radius-lg:   12px;
+
+  /* —— 阴影模型（静态面以边框为主，浮动层可用稍深阴影） —— */
+  --shadow-xs: 0 1px 2px rgba(16, 37, 71, 0.04);
+  --shadow-sm: 0 2px 6px rgba(16, 37, 71, 0.05);
+  --shadow-md: 0 8px 24px rgba(16, 37, 71, 0.10);
+  --shadow-lg: 0 16px 40px rgba(16, 37, 71, 0.14);
+
+  /* —— 排版系统 —— */
+  --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Consolas", monospace;
+}
+
+/* —— Dark mode（预留） —— */
+.dark {
+  --color-background:         #0a1a33;
+  --color-foreground:         #e2e6ed;
+  --color-card:               #102547;
+  --color-card-foreground:    #e2e6ed;
+  --color-popover:            #102547;
+  --color-popover-foreground: #e2e6ed;
+  --color-primary:            #4a73b0;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #16305e;
+  --color-muted-foreground:   #9aa3b2;
+  --color-border:             #1f3f7a;
+  --color-input:              #1f3f7a;
+  --color-ring:               #7a9bcd;
+}
+
+/* —— 字体类 —— */
+.font-display { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.01em; }
+.font-body    { font-family: var(--font-sans); font-weight: 400; }
+.font-mono    { font-family: var(--font-mono); }
+
+/* —— 标题层级 —— */
+.text-h1 { font-size: 28px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.text-h2 { font-size: 22px; line-height: 1.3;  font-weight: 600; letter-spacing: -0.005em; }
+.text-h3 { font-size: 17px; line-height: 1.35; font-weight: 600; }
+.text-h4 { font-size: 14px; line-height: 1.4;  font-weight: 600; }
+
+/* —— 正文层级 —— */
+.text-body    { font-size: 14px; line-height: 1.6; font-weight: 400; }
+.text-body-sm { font-size: 13px; line-height: 1.55; font-weight: 400; }
+.text-caption { font-size: 12px; line-height: 1.5;  font-weight: 400; color: var(--color-muted-foreground); }
+.text-overline { font-size: 11px; line-height: 1.4; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted-foreground); }
+
+/* —— 颜色工具类 —— */
+.text-primary         { color: var(--color-primary); }
+.text-primary-foreground { color: var(--color-primary-foreground); }
+.text-muted-foreground { color: var(--color-muted-foreground); }
+.text-foreground       { color: var(--color-foreground); }
+
+.bg-primary           { background-color: var(--color-primary); }
+.bg-primary-foreground{ background-color: var(--color-primary-foreground); }
+.bg-card              { background-color: var(--color-card); }
+.bg-muted             { background-color: var(--color-muted); }
+.bg-background        { background-color: var(--color-background); }
+
+.border-border        { border-color: var(--color-border); }
+.ring-ring            { --tw-ring-color: var(--color-ring); }
+
+/* —— 状态文字色 —— */
+.text-success { color: var(--state-success); }
+.text-warning { color: var(--state-warning); }
+.text-error   { color: var(--state-error); }
+.text-info    { color: var(--state-info); }
+
+.bg-success-soft { background-color: rgba(31, 157, 110, 0.10); }
+.bg-warning-soft { background-color: rgba(217, 138, 10, 0.12); }
+.bg-error-soft   { background-color: rgba(214, 59, 59, 0.10); }
+.bg-info-soft    { background-color: rgba(47, 86, 151, 0.10); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--office-background);
+    --color-foreground: var(--office-foreground);
+    --color-card: var(--office-card);
+    --color-card-foreground: var(--office-card-foreground);
+    --color-popover: var(--office-popover);
+    --color-popover-foreground: var(--office-popover-foreground);
+    --color-primary: var(--office-primary);
+    --color-primary-foreground: var(--office-primary-foreground);
+    --color-muted: var(--office-muted);
+    --color-muted-foreground: var(--office-muted-foreground);
+    --color-border: var(--office-border);
+    --color-input: var(--office-input);
+    --color-ring: var(--office-ring);
+    --radius-sm: var(--office-radius-sm);
+    --radius-md: var(--office-radius-md);
+    --radius-lg: var(--office-radius-lg);
+  }
+  @layer base {
+    body { background: var(--office-background); color: var(--office-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--office-background); }
+      .text-background { color: var(--office-background); }
+      .border-background { border-color: var(--office-background); }
+      .ring-background { --tw-ring-color: var(--office-background); }
+      .bg-foreground { background-color: var(--office-foreground); }
+      .text-foreground { color: var(--office-foreground); }
+      .border-foreground { border-color: var(--office-foreground); }
+      .ring-foreground { --tw-ring-color: var(--office-foreground); }
+      .bg-card { background-color: var(--office-card); }
+      .text-card { color: var(--office-card); }
+      .border-card { border-color: var(--office-card); }
+      .ring-card { --tw-ring-color: var(--office-card); }
+      .bg-card-foreground { background-color: var(--office-card-foreground); }
+      .text-card-foreground { color: var(--office-card-foreground); }
+      .border-card-foreground { border-color: var(--office-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--office-card-foreground); }
+      .bg-popover { background-color: var(--office-popover); }
+      .text-popover { color: var(--office-popover); }
+      .border-popover { border-color: var(--office-popover); }
+      .ring-popover { --tw-ring-color: var(--office-popover); }
+      .bg-popover-foreground { background-color: var(--office-popover-foreground); }
+      .text-popover-foreground { color: var(--office-popover-foreground); }
+      .border-popover-foreground { border-color: var(--office-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--office-popover-foreground); }
+      .bg-primary { background-color: var(--office-primary); }
+      .text-primary { color: var(--office-primary); }
+      .border-primary { border-color: var(--office-primary); }
+      .ring-primary { --tw-ring-color: var(--office-primary); }
+      .bg-primary-foreground { background-color: var(--office-primary-foreground); }
+      .text-primary-foreground { color: var(--office-primary-foreground); }
+      .border-primary-foreground { border-color: var(--office-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--office-primary-foreground); }
+      .bg-muted { background-color: var(--office-muted); }
+      .text-muted { color: var(--office-muted); }
+      .border-muted { border-color: var(--office-muted); }
+      .ring-muted { --tw-ring-color: var(--office-muted); }
+      .bg-muted-foreground { background-color: var(--office-muted-foreground); }
+      .text-muted-foreground { color: var(--office-muted-foreground); }
+      .border-muted-foreground { border-color: var(--office-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--office-muted-foreground); }
+      .bg-border { background-color: var(--office-border); }
+      .text-border { color: var(--office-border); }
+      .border-border { border-color: var(--office-border); }
+      .ring-border { --tw-ring-color: var(--office-border); }
+      .bg-input { background-color: var(--office-input); }
+      .text-input { color: var(--office-input); }
+      .border-input { border-color: var(--office-input); }
+      .ring-input { --tw-ring-color: var(--office-input); }
+      .bg-ring { background-color: var(--office-ring); }
+      .text-ring { color: var(--office-ring); }
+      .border-ring { border-color: var(--office-ring); }
+      .ring-ring { --tw-ring-color: var(--office-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+<!-- ============================================================
+     project-shell.html — Shared project chrome (fragment only)
+     一人公司办公系统 · 桌面端管理后台外壳
+     Inherited by: pages/{dashboard,projects,finance,clients,schedule}.html
+     Fragment rules: NO <!DOCTYPE>/<html>/<head>/<body>.
+     Leaf pages load Lucide + brand CSS in their own <head>.
+     ============================================================ -->
+
+<div class="flex h-screen overflow-hidden bg-[var(--color-background)]">
+
+  <!-- ============== LEFT SIDEBAR (240px, deep navy) ============== -->
+  <aside class="flex w-60 flex-col bg-[var(--color-primary-900)] text-white">
+
+    <!-- Brand zone -->
+    <div class="flex h-16 items-center gap-3 px-5 border-b border-white/5">
+      <div class="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--color-primary-400)]">
+        <i data-lucide="layers" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-h4 font-display tracking-wide text-white">SOLO OFFICE</span>
+        <span class="text-caption text-white/40">一人公司办公</span>
+      </div>
+    </div>
+
+    <!-- Primary nav -->
+    <nav class="flex flex-1 flex-col gap-1 px-3 py-4">
+      <a href="#" data-nav-key="dashboard" data-dom-id="nav-dashboard"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="layout-dashboard" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>工作台</span>
+      </a>
+      <a href="#" data-nav-key="projects" data-dom-id="nav-projects" data-active="true"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="folder-kanban" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>项目管理</span>
+      </a>
+      <a href="#" data-nav-key="finance" data-dom-id="nav-finance"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="wallet" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>财务概览</span>
+      </a>
+      <a href="#" data-nav-key="clients" data-dom-id="nav-clients"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="users" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>客户管理</span>
+      </a>
+      <a href="#" data-nav-key="schedule" data-dom-id="nav-schedule"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="calendar-days" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>日程安排</span>
+      </a>
+    </nav>
+
+    <!-- Bottom user card -->
+    <div class="flex items-center gap-3 px-3 py-4 border-t border-white/5">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-400)] text-body-sm font-medium text-white">LZ</div>
+      <div class="flex min-w-0 flex-1 flex-col leading-tight">
+        <span class="truncate text-body-sm text-white">林泽宇</span>
+        <span class="truncate text-caption text-white/40">创始人 · 独立顾问</span>
+      </div>
+      <button type="button" aria-label="退出登录"
+              class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="log-out" class="h-4 w-4" style="stroke-width:1.5"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN COLUMN ============== -->
+  <div class="flex min-w-0 flex-1 flex-col">
+
+    <!-- Topbar (64px) -->
+    <header class="flex h-16 items-center justify-between px-8 bg-[var(--color-card)] border-b border-[var(--color-border)]">
+      <!-- Left: page title slot -->
+      <div class="flex min-w-0 items-center gap-3">
+        <!-- SLOT: pageTitle -->
+        <div class="flex items-center gap-2 text-[var(--color-muted-foreground)] text-caption">
+          <span>办公</span>
+          <i data-lucide="chevron-right" class="h-3 w-3" style="stroke-width:1.5"></i>
+          <span class="text-[var(--color-foreground)]">项目管理</span>
+        </div>
+        <a href="#" data-dom-id="cta-workflows"
+           class="inline-flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-3 py-1.5 text-caption font-medium text-[var(--color-primary)] transition-colors hover:bg-[var(--color-muted)]">
+          <i data-lucide="workflow" class="h-3.5 w-3.5" style="stroke-width:1.5"></i>
+          <span>工作流程</span>
+        </a>
+      </div>
+
+      <!-- Right: toolbar -->
+      <div class="flex flex-shrink-0 items-center gap-3">
+        <!-- Global search -->
+        <div class="relative">
+          <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+          <input type="text" placeholder="搜索项目、客户、发票…"
+                 class="h-9 w-64 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] py-2 pl-9 pr-3 text-body-sm text-[var(--color-foreground)] placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-ring)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]/30" />
+        </div>
+
+        <!-- Divider -->
+        <div class="h-6 w-px bg-[var(--color-border)]"></div>
+
+        <!-- Notification bell -->
+        <button type="button" aria-label="通知"
+                class="relative flex h-9 w-9 items-center justify-center rounded-md text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]">
+          <i data-lucide="bell" class="h-[18px] w-[18px]" style="stroke-width:1.5"></i>
+          <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--state-error)]"></span>
+        </button>
+
+        <!-- Avatar menu -->
+        <button type="button" aria-label="账户菜单"
+                class="flex items-center gap-1.5 rounded-md p-1 transition-colors hover:bg-[var(--color-muted)]">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary-600)] text-caption font-medium text-white">LZ</span>
+          <i data-lucide="chevron-down" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="min-h-full flex-1 overflow-y-auto bg-[var(--color-background)] p-8">
+      <!-- SLOT: pageContent -->
+      <!-- ============ Toolbar row ============ -->
+      <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <!-- Left: status filter tabs -->
+        <div class="inline-flex items-center gap-1 rounded-md bg-[var(--color-muted)] p-1">
+          <button type="button"
+                  class="inline-flex items-center gap-1.5 rounded bg-[var(--color-card)] px-4 py-1.5 text-body-sm font-medium text-[var(--color-foreground)] shadow-sm transition-colors">
+            <span>全部</span>
+            <span class="text-caption text-[var(--color-muted-foreground)]">4</span>
+          </button>
+          <button type="button"
+                  class="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-body-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
+            <span>进行中</span>
+            <span class="text-caption">3</span>
+          </button>
+          <button type="button"
+                  class="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-body-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
+            <span>已交付</span>
+            <span class="text-caption">1</span>
+          </button>
+          <button type="button"
+                  class="inline-flex items-center gap-1.5 rounded px-4 py-1.5 text-body-sm text-[var(--color-muted-foreground)] transition-colors hover:text-[var(--color-foreground)]">
+            <span>已归档</span>
+            <span class="text-caption">0</span>
+          </button>
+        </div>
+
+        <!-- Right: search + filter + new -->
+        <div class="flex items-center gap-3">
+          <!-- Local search -->
+          <div class="relative">
+            <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+            <input type="text" placeholder="搜索项目…"
+                   class="h-9 w-56 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] py-2 pl-9 pr-3 text-body-sm text-[var(--color-foreground)] placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-ring)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]/30" />
+          </div>
+          <button type="button"
+                  class="inline-flex items-center gap-2 rounded-md border border-[var(--color-border)] bg-[var(--color-card)] px-4 py-2 text-body-sm font-medium text-[var(--color-foreground)] transition-colors hover:bg-[var(--color-muted)]">
+            <i data-lucide="sliders-horizontal" class="h-4 w-4" style="stroke-width:1.5"></i>
+            <span>筛选</span>
+          </button>
+          <button type="button"
+                  class="inline-flex items-center gap-2 rounded-md bg-[var(--color-primary)] px-4 py-2 text-body-sm font-medium text-white transition-colors hover:bg-[var(--color-primary-700)]">
+            <i data-lucide="plus" class="h-4 w-4" style="stroke-width:1.5"></i>
+            <span>新建项目</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ============ Project cards grid ============ -->
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Card 1: toB服饰外贸 -->
+        <article class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-primary-300)]">
+          <div class="mb-3 flex items-start justify-between gap-3">
+            <div class="flex min-w-0 items-start gap-3">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="shirt" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <div class="flex min-w-0 flex-col leading-tight">
+                <span class="truncate text-body font-medium text-[var(--color-foreground)]">toB 服饰外贸</span>
+                <span class="text-caption text-[var(--color-muted-foreground)]">外贸事业部 · 自营</span>
+              </div>
+            </div>
+            <span class="inline-flex flex-shrink-0 items-center rounded-sm bg-info-soft px-2 py-1 text-caption font-medium text-info">进行中</span>
+          </div>
+          <p class="mb-4 line-clamp-2 text-body-sm text-[var(--color-muted-foreground)]">面向海外 B 端买家的服饰外贸业务，含选品、报价、订单履约与跨境物流跟踪。</p>
+          <div class="mb-4">
+            <div class="mb-1.5 flex items-center justify-between">
+              <span class="text-caption">进度</span>
+              <span class="text-body-sm font-medium text-[var(--color-foreground)]">62%</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-[var(--color-muted)]">
+              <div class="h-full rounded-full bg-[var(--color-primary)]" style="width:62%"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-4">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="calendar" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption text-[var(--color-muted-foreground)]">长期滚动</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="circle-dollar-sign" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption font-medium text-[var(--color-foreground)]">¥ 240,000</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 2: 小红书运营 · 种草带货 -->
+        <article class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-primary-300)]">
+          <div class="mb-3 flex items-start justify-between gap-3">
+            <div class="flex min-w-0 items-start gap-3">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="book-open" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <div class="flex min-w-0 flex-col leading-tight">
+                <span class="truncate text-body font-medium text-[var(--color-foreground)]">小红书运营 · 种草带货</span>
+                <span class="text-caption text-[var(--color-muted-foreground)]">内容电商 · 自营</span>
+              </div>
+            </div>
+            <span class="inline-flex flex-shrink-0 items-center rounded-sm bg-info-soft px-2 py-1 text-caption font-medium text-info">进行中</span>
+          </div>
+          <p class="mb-4 line-clamp-2 text-body-sm text-[var(--color-muted-foreground)]">小红书账号矩阵运营与种草带货，涵盖选题策划、笔记发布、达人合作与转化复盘。</p>
+          <div class="mb-4">
+            <div class="mb-1.5 flex items-center justify-between">
+              <span class="text-caption">进度</span>
+              <span class="text-body-sm font-medium text-[var(--color-foreground)]">48%</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-[var(--color-muted)]">
+              <div class="h-full rounded-full bg-[var(--color-primary)]" style="width:48%"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-4">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="calendar" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption text-[var(--color-muted-foreground)]">季度迭代</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="circle-dollar-sign" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption font-medium text-[var(--color-foreground)]">¥ 86,000</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: 抖音韩漫动漫短视频连续剧剪辑发布 -->
+        <article class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-primary-300)]">
+          <div class="mb-3 flex items-start justify-between gap-3">
+            <div class="flex min-w-0 items-start gap-3">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="clapperboard" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <div class="flex min-w-0 flex-col leading-tight">
+                <span class="truncate text-body font-medium text-[var(--color-foreground)]">抖音韩漫动漫短视频连续剧</span>
+                <span class="text-caption text-[var(--color-muted-foreground)]">短视频 · 剪辑发布</span>
+              </div>
+            </div>
+            <span class="inline-flex flex-shrink-0 items-center rounded-sm bg-info-soft px-2 py-1 text-caption font-medium text-info">进行中</span>
+          </div>
+          <p class="mb-4 line-clamp-2 text-body-sm text-[var(--color-muted-foreground)]">韩漫动漫内容改编为短视频连续剧，负责剪辑、配音、连载排期与平台分发。</p>
+          <div class="mb-4">
+            <div class="mb-1.5 flex items-center justify-between">
+              <span class="text-caption">进度</span>
+              <span class="text-body-sm font-medium text-[var(--color-foreground)]">35%</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-[var(--color-muted)]">
+              <div class="h-full rounded-full bg-[var(--color-primary)]" style="width:35%"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-4">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="calendar" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption text-[var(--color-muted-foreground)]">每周更新</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="circle-dollar-sign" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption font-medium text-[var(--color-foreground)]">¥ 54,000</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 4: 数据分析 -->
+        <article class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5 transition-colors hover:border-[var(--color-primary-300)]">
+          <div class="mb-3 flex items-start justify-between gap-3">
+            <div class="flex min-w-0 items-start gap-3">
+              <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="bar-chart-3" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <div class="flex min-w-0 flex-col leading-tight">
+                <span class="truncate text-body font-medium text-[var(--color-foreground)]">数据分析</span>
+                <span class="text-caption text-[var(--color-muted-foreground)]">经营分析 · 自营</span>
+              </div>
+            </div>
+            <span class="inline-flex flex-shrink-0 items-center rounded-sm bg-success-soft px-2 py-1 text-caption font-medium text-success">已交付</span>
+          </div>
+          <p class="mb-4 line-clamp-2 text-body-sm text-[var(--color-muted-foreground)]">对各业务线销售、流量与转化数据进行清洗、建模与可视化，输出经营分析周报。</p>
+          <div class="mb-4">
+            <div class="mb-1.5 flex items-center justify-between">
+              <span class="text-caption">进度</span>
+              <span class="text-body-sm font-medium text-[var(--color-foreground)]">100%</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-[var(--color-muted)]">
+              <div class="h-full rounded-full bg-[var(--color-primary)]" style="width:100%"></div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between border-t border-[var(--color-border)] pt-4">
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="calendar" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption text-[var(--color-muted-foreground)]">已完成 7/25</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <i data-lucide="circle-dollar-sign" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+              <span class="text-caption font-medium text-[var(--color-foreground)]">¥ 28,000</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </main>
+  </div>
+</div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>if(window.lucide){lucide.createIcons();}</script>
+    <style>
+      nav a[data-active="true"]{background-color:var(--color-primary-700);color:#fff}
+      nav a[data-active="true"]::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--color-primary-400)}
+    </style>
+</body>
+</html>

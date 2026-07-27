@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>工作流程 · 一人公司办公系统</title>
+    <style id="theme-vars">
+/* ==========================================================================
+   一人公司办公系统 — Brand CSS (商务质感)
+   ========================================================================== */
+
+:root {
+  /* —— 主色：深海军蓝 —— */
+  --color-primary-50:  #eef2f9;
+  --color-primary-100: #d6e0f0;
+  --color-primary-200: #adc1e1;
+  --color-primary-300: #7a9bcd;
+  --color-primary-400: #4a73b0;
+  --color-primary-500: #2f5697;
+  --color-primary-600: #1f3f7a;
+  --color-primary-700: #16305e;
+  --color-primary-800: #102547;
+  --color-primary-900: #0a1a33;
+
+  /* —— 中性面 —— */
+  --color-neutral-0:   #ffffff;
+  --color-neutral-50:  #f7f8fa;
+  --color-neutral-100: #eef0f4;
+  --color-neutral-200: #e2e6ed;
+  --color-neutral-300: #cdd4df;
+  --color-neutral-400: #9aa3b2;
+  --color-neutral-500: #6b7280;
+  --color-neutral-600: #4b5563;
+  --color-neutral-700: #374151;
+  --color-neutral-800: #1f2937;
+  --color-neutral-900: #111827;
+
+  /* —— 语义状态色（仅语义状态使用） —— */
+  --state-success: #1f9d6e;
+  --state-warning: #d98a0a;
+  --state-error:   #d63b3b;
+  --state-info:    #2f5697;
+
+  /* —— 语义别名（fill-html-head.mjs 解析） —— */
+  --color-background:         #f7f8fa;
+  --color-foreground:         #1f2937;
+  --color-card:               #ffffff;
+  --color-card-foreground:    #1f2937;
+  --color-popover:            #ffffff;
+  --color-popover-foreground: #1f2937;
+  --color-primary:            #1f3f7a;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #f1f3f8;
+  --color-muted-foreground:   #6b7280;
+  --color-border:             #e2e6ed;
+  --color-input:              #e2e6ed;
+  --color-ring:               #2f5697;
+
+  /* —— 圆角尺度（克制） —— */
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   12px;
+  --radius-full: 9999px;
+
+  /* —— 前缀语义别名（fill-html-head.mjs 解析） —— */
+  --office-background:          #f7f8fa;
+  --office-foreground:          #1f2937;
+  --office-card:                #ffffff;
+  --office-card-foreground:     #1f2937;
+  --office-popover:             #ffffff;
+  --office-popover-foreground:  #1f2937;
+  --office-primary:             #1f3f7a;
+  --office-primary-foreground:  #ffffff;
+  --office-muted:               #f1f3f8;
+  --office-muted-foreground:    #6b7280;
+  --office-border:              #e2e6ed;
+  --office-input:               #e2e6ed;
+  --office-ring:                #2f5697;
+  --office-radius-sm:   4px;
+  --office-radius-md:   8px;
+  --office-radius-lg:   12px;
+
+  /* —— 阴影模型（静态面以边框为主，浮动层可用稍深阴影） —— */
+  --shadow-xs: 0 1px 2px rgba(16, 37, 71, 0.04);
+  --shadow-sm: 0 2px 6px rgba(16, 37, 71, 0.05);
+  --shadow-md: 0 8px 24px rgba(16, 37, 71, 0.10);
+  --shadow-lg: 0 16px 40px rgba(16, 37, 71, 0.14);
+
+  /* —— 排版系统 —— */
+  --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Consolas", monospace;
+}
+
+/* —— Dark mode（预留） —— */
+.dark {
+  --color-background:         #0a1a33;
+  --color-foreground:         #e2e6ed;
+  --color-card:               #102547;
+  --color-card-foreground:    #e2e6ed;
+  --color-popover:            #102547;
+  --color-popover-foreground: #e2e6ed;
+  --color-primary:            #4a73b0;
+  --color-primary-foreground: #ffffff;
+  --color-muted:              #16305e;
+  --color-muted-foreground:   #9aa3b2;
+  --color-border:             #1f3f7a;
+  --color-input:              #1f3f7a;
+  --color-ring:               #7a9bcd;
+}
+
+/* —— 字体类 —— */
+.font-display { font-family: var(--font-sans); font-weight: 700; letter-spacing: -0.01em; }
+.font-body    { font-family: var(--font-sans); font-weight: 400; }
+.font-mono    { font-family: var(--font-mono); }
+
+/* —— 标题层级 —— */
+.text-h1 { font-size: 28px; line-height: 1.25; font-weight: 700; letter-spacing: -0.01em; }
+.text-h2 { font-size: 22px; line-height: 1.3;  font-weight: 600; letter-spacing: -0.005em; }
+.text-h3 { font-size: 17px; line-height: 1.35; font-weight: 600; }
+.text-h4 { font-size: 14px; line-height: 1.4;  font-weight: 600; }
+
+/* —— 正文层级 —— */
+.text-body    { font-size: 14px; line-height: 1.6; font-weight: 400; }
+.text-body-sm { font-size: 13px; line-height: 1.55; font-weight: 400; }
+.text-caption { font-size: 12px; line-height: 1.5;  font-weight: 400; color: var(--color-muted-foreground); }
+.text-overline { font-size: 11px; line-height: 1.4; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-muted-foreground); }
+
+/* —— 颜色工具类 —— */
+.text-primary         { color: var(--color-primary); }
+.text-primary-foreground { color: var(--color-primary-foreground); }
+.text-muted-foreground { color: var(--color-muted-foreground); }
+.text-foreground       { color: var(--color-foreground); }
+
+.bg-primary           { background-color: var(--color-primary); }
+.bg-primary-foreground{ background-color: var(--color-primary-foreground); }
+.bg-card              { background-color: var(--color-card); }
+.bg-muted             { background-color: var(--color-muted); }
+.bg-background        { background-color: var(--color-background); }
+
+.border-border        { border-color: var(--color-border); }
+.ring-ring            { --tw-ring-color: var(--color-ring); }
+
+/* —— 状态文字色 —— */
+.text-success { color: var(--state-success); }
+.text-warning { color: var(--state-warning); }
+.text-error   { color: var(--state-error); }
+.text-info    { color: var(--state-info); }
+
+.bg-success-soft { background-color: rgba(31, 157, 110, 0.10); }
+.bg-warning-soft { background-color: rgba(217, 138, 10, 0.12); }
+.bg-error-soft   { background-color: rgba(214, 59, 59, 0.10); }
+.bg-info-soft    { background-color: rgba(47, 86, 151, 0.10); }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--office-background);
+    --color-foreground: var(--office-foreground);
+    --color-card: var(--office-card);
+    --color-card-foreground: var(--office-card-foreground);
+    --color-popover: var(--office-popover);
+    --color-popover-foreground: var(--office-popover-foreground);
+    --color-primary: var(--office-primary);
+    --color-primary-foreground: var(--office-primary-foreground);
+    --color-muted: var(--office-muted);
+    --color-muted-foreground: var(--office-muted-foreground);
+    --color-border: var(--office-border);
+    --color-input: var(--office-input);
+    --color-ring: var(--office-ring);
+    --radius-sm: var(--office-radius-sm);
+    --radius-md: var(--office-radius-md);
+    --radius-lg: var(--office-radius-lg);
+  }
+  @layer base {
+    body { background: var(--office-background); color: var(--office-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--office-background); }
+      .text-background { color: var(--office-background); }
+      .border-background { border-color: var(--office-background); }
+      .ring-background { --tw-ring-color: var(--office-background); }
+      .bg-foreground { background-color: var(--office-foreground); }
+      .text-foreground { color: var(--office-foreground); }
+      .border-foreground { border-color: var(--office-foreground); }
+      .ring-foreground { --tw-ring-color: var(--office-foreground); }
+      .bg-card { background-color: var(--office-card); }
+      .text-card { color: var(--office-card); }
+      .border-card { border-color: var(--office-card); }
+      .ring-card { --tw-ring-color: var(--office-card); }
+      .bg-card-foreground { background-color: var(--office-card-foreground); }
+      .text-card-foreground { color: var(--office-card-foreground); }
+      .border-card-foreground { border-color: var(--office-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--office-card-foreground); }
+      .bg-popover { background-color: var(--office-popover); }
+      .text-popover { color: var(--office-popover); }
+      .border-popover { border-color: var(--office-popover); }
+      .ring-popover { --tw-ring-color: var(--office-popover); }
+      .bg-popover-foreground { background-color: var(--office-popover-foreground); }
+      .text-popover-foreground { color: var(--office-popover-foreground); }
+      .border-popover-foreground { border-color: var(--office-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--office-popover-foreground); }
+      .bg-primary { background-color: var(--office-primary); }
+      .text-primary { color: var(--office-primary); }
+      .border-primary { border-color: var(--office-primary); }
+      .ring-primary { --tw-ring-color: var(--office-primary); }
+      .bg-primary-foreground { background-color: var(--office-primary-foreground); }
+      .text-primary-foreground { color: var(--office-primary-foreground); }
+      .border-primary-foreground { border-color: var(--office-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--office-primary-foreground); }
+      .bg-muted { background-color: var(--office-muted); }
+      .text-muted { color: var(--office-muted); }
+      .border-muted { border-color: var(--office-muted); }
+      .ring-muted { --tw-ring-color: var(--office-muted); }
+      .bg-muted-foreground { background-color: var(--office-muted-foreground); }
+      .text-muted-foreground { color: var(--office-muted-foreground); }
+      .border-muted-foreground { border-color: var(--office-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--office-muted-foreground); }
+      .bg-border { background-color: var(--office-border); }
+      .text-border { color: var(--office-border); }
+      .border-border { border-color: var(--office-border); }
+      .ring-border { --tw-ring-color: var(--office-border); }
+      .bg-input { background-color: var(--office-input); }
+      .text-input { color: var(--office-input); }
+      .border-input { border-color: var(--office-input); }
+      .ring-input { --tw-ring-color: var(--office-input); }
+      .bg-ring { background-color: var(--office-ring); }
+      .text-ring { color: var(--office-ring); }
+      .border-ring { border-color: var(--office-ring); }
+      .ring-ring { --tw-ring-color: var(--office-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+<!-- ============================================================
+     project-shell.html — Shared project chrome (fragment only)
+     一人公司办公系统 · 桌面端管理后台外壳
+     ============================================================ -->
+
+<div class="flex h-screen overflow-hidden bg-[var(--color-background)]">
+
+  <!-- ============== LEFT SIDEBAR (240px, deep navy) ============== -->
+  <aside class="flex w-60 flex-col bg-[var(--color-primary-900)] text-white">
+
+    <!-- Brand zone -->
+    <div class="flex h-16 items-center gap-3 px-5 border-b border-white/5">
+      <div class="flex h-6 w-6 items-center justify-center rounded-md bg-[var(--color-primary-400)]">
+        <i data-lucide="layers" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+      </div>
+      <div class="flex flex-col leading-tight">
+        <span class="text-h4 font-display tracking-wide text-white">SOLO OFFICE</span>
+        <span class="text-caption text-white/40">一人公司办公</span>
+      </div>
+    </div>
+
+    <!-- Primary nav -->
+    <nav class="flex flex-1 flex-col gap-1 px-3 py-4">
+      <a href="#" data-nav-key="dashboard" data-dom-id="nav-dashboard"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="layout-dashboard" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>工作台</span>
+      </a>
+      <a href="#" data-nav-key="projects" data-dom-id="nav-projects" data-active="true"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="folder-kanban" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>项目管理</span>
+      </a>
+      <a href="#" data-nav-key="finance" data-dom-id="nav-finance"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="wallet" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>财务概览</span>
+      </a>
+      <a href="#" data-nav-key="clients" data-dom-id="nav-clients"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="users" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>客户管理</span>
+      </a>
+      <a href="#" data-nav-key="schedule" data-dom-id="nav-schedule"
+         class="relative flex items-center gap-3 rounded-md px-3 py-2 text-body-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="calendar-days" class="h-5 w-5" style="stroke-width:1.5"></i>
+        <span>日程安排</span>
+      </a>
+    </nav>
+
+    <!-- Bottom user card -->
+    <div class="flex items-center gap-3 px-3 py-4 border-t border-white/5">
+      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-400)] text-body-sm font-medium text-white">LZ</div>
+      <div class="flex min-w-0 flex-1 flex-col leading-tight">
+        <span class="truncate text-body-sm text-white">林泽宇</span>
+        <span class="truncate text-caption text-white/40">创始人 · 独立顾问</span>
+      </div>
+      <button type="button" aria-label="退出登录"
+              class="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-md text-white/40 transition-colors hover:bg-white/5 hover:text-white">
+        <i data-lucide="log-out" class="h-4 w-4" style="stroke-width:1.5"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ============== MAIN COLUMN ============== -->
+  <div class="flex min-w-0 flex-1 flex-col">
+
+    <!-- Topbar (64px) -->
+    <header class="flex h-16 items-center justify-between px-8 bg-[var(--color-card)] border-b border-[var(--color-border)]">
+      <!-- Left: page title + breadcrumb -->
+      <div class="flex min-w-0 items-center gap-3">
+        <div class="flex items-center gap-2 text-caption text-[var(--color-muted-foreground)]">
+          <span>办公</span>
+          <i data-lucide="chevron-right" class="h-3 w-3" style="stroke-width:1.5"></i>
+          <span>项目管理</span>
+          <i data-lucide="chevron-right" class="h-3 w-3" style="stroke-width:1.5"></i>
+          <span class="text-[var(--color-foreground)]">工作流程</span>
+        </div>
+      </div>
+
+      <!-- Right: toolbar -->
+      <div class="flex flex-shrink-0 items-center gap-3">
+        <!-- Global search -->
+        <div class="relative">
+          <i data-lucide="search" class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+          <input type="text" placeholder="搜索项目、客户、发票…"
+                 class="h-9 w-64 rounded-md border border-[var(--color-border)] bg-[var(--color-muted)] py-2 pl-9 pr-3 text-body-sm text-[var(--color-foreground)] placeholder:text-[var(--color-muted-foreground)] focus:border-[var(--color-ring)] focus:outline-none focus:ring-2 focus:ring-[var(--color-ring)]/30" />
+        </div>
+
+        <!-- Divider -->
+        <div class="h-6 w-px bg-[var(--color-border)]"></div>
+
+        <!-- Notification bell -->
+        <button type="button" aria-label="通知"
+                class="relative flex h-9 w-9 items-center justify-center rounded-md text-[var(--color-muted-foreground)] transition-colors hover:bg-[var(--color-muted)] hover:text-[var(--color-foreground)]">
+          <i data-lucide="bell" class="h-[18px] w-[18px]" style="stroke-width:1.5"></i>
+          <span class="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--state-error)]"></span>
+        </button>
+
+        <!-- Avatar menu -->
+        <button type="button" aria-label="账户菜单"
+                class="flex items-center gap-1.5 rounded-md p-1 transition-colors hover:bg-[var(--color-muted)]">
+          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary-600)] text-caption font-medium text-white">LZ</span>
+          <i data-lucide="chevron-down" class="h-3.5 w-3.5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main content area -->
+    <main class="min-h-full flex-1 overflow-y-auto bg-[var(--color-background)] p-8">
+
+      <!-- ============ Page Header ============ -->
+      <div class="mb-8">
+        <h1 class="text-h1 text-[var(--color-foreground)]">工作流程</h1>
+        <p class="mt-1 text-body text-[var(--color-muted-foreground)]">四条业务线端到端流程管理</p>
+      </div>
+
+      <!-- ============ Section 1: toB 服饰外贸 — Full Workflow ============ -->
+      <section class="mb-8">
+        <div class="mb-5 flex items-center gap-3">
+          <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+            <i data-lucide="shirt" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+          </div>
+          <div>
+            <h2 class="text-h2 text-[var(--color-foreground)]">toB 服饰外贸</h2>
+            <p class="text-caption">外贸事业部 · 自营 · 长期滚动</p>
+          </div>
+        </div>
+
+        <!-- Workflow Pipeline -->
+        <div class="mb-6 grid grid-cols-4 gap-4">
+          <!-- Step 1: 开发客户 (active/expanded) -->
+          <div class="rounded-lg border-2 border-[var(--color-primary)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary)]">
+                <i data-lucide="user-plus" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-primary)]">开发客户</span>
+            </div>
+            <span class="inline-flex items-center rounded-sm bg-[var(--color-primary-50)] px-2 py-0.5 text-caption font-medium text-[var(--color-primary)]">当前阶段</span>
+          </div>
+
+          <!-- Step 2: 背调客户 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-neutral-300)]">
+                <i data-lucide="search-check" class="h-4 w-4 text-[var(--color-neutral-600)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-neutral-600)]">背调客户</span>
+            </div>
+            <span class="text-caption text-[var(--color-muted-foreground)]">待执行</span>
+          </div>
+
+          <!-- Step 3: 联系/跟进客户 (active/expanded) -->
+          <div class="rounded-lg border-2 border-[var(--color-primary)] bg-[var(--color-primary-50)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary)]">
+                <i data-lucide="phone-call" class="h-4 w-4 text-white" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-primary)]">联系/跟进客户</span>
+            </div>
+            <span class="text-caption text-[var(--color-primary)]">当前步骤 · 邮箱开发信流程</span>
+          </div>
+
+          <!-- Step 4: 交付 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-neutral-300)]">
+                <i data-lucide="package-check" class="h-4 w-4 text-[var(--color-neutral-600)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-neutral-600)]">交付</span>
+            </div>
+            <span class="text-caption text-[var(--color-muted-foreground)]">待执行</span>
+          </div>
+        </div>
+
+        <!-- Expanded: 开发客户 — 8 Sub-channels -->
+        <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div class="mb-5 flex items-center gap-2">
+            <i data-lucide="user-plus" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+            <h3 class="text-h3 text-[var(--color-foreground)]">开发客户 — 8 大渠道</h3>
+          </div>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <!-- Channel 1: Google 搜索 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="globe" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">Google 搜索</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">通过 Google 搜索目标市场服饰批发商、品牌商、零售商，使用关键词组合（如 "apparel wholesaler + country"）挖掘潜在客户网站和联系方式。</p>
+            </div>
+
+            <!-- Channel 2: LinkedIn -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="linkedin" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">LinkedIn</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">在 LinkedIn 搜索目标公司的采购经理、供应链总监等决策人，通过行业群组和 Company Page 建立联系，发送个性化 InMail。</p>
+            </div>
+
+            <!-- Channel 3: 行业展会 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="presentation" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">行业展会</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">参加 MAGIC、Coterie、Premiere Vision 等国际服饰展会，收集展商名录和买家信息，现场交换名片建立初步联系。</p>
+            </div>
+
+            <!-- Channel 4: B2B 平台 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="building-2" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">B2B 平台</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">在阿里巴巴国际站、中国制造网、Global Sources 等平台发布产品，主动搜索买家 RFQ 并报价，优化产品关键词排名。</p>
+            </div>
+
+            <!-- Channel 5: 海关数据 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="ship" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">海关数据</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">使用 Panjiva、ImportGenius 等海关数据平台，查询目标国家服饰进口商名单及其采购记录，锁定有稳定进口量的买家。</p>
+            </div>
+
+            <!-- Channel 6: 黄页 + 邮件 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="book-open-text" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">黄页 + 邮件</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">通过 Yellow Pages、Kompass 等企业黄页获取目标市场服饰公司名录，结合 Hunter.io、Snov.io 等工具查找邮箱，发送开发信。</p>
+            </div>
+
+            <!-- Channel 7: 社交媒体 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="share-2" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">社交媒体</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">在 Facebook、Instagram、TikTok 关注目标品牌和行业 KOL，通过私信、评论互动建立联系，利用 Facebook Groups 行业群组挖掘线索。</p>
+            </div>
+
+            <!-- Channel 8: 老客户转介绍 -->
+            <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary-50)]">
+                  <i data-lucide="users-round" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">老客户转介绍</span>
+              </div>
+              <p class="text-body-sm text-[var(--color-muted-foreground)]">维护现有客户关系，定期跟进满意度，请求老客户推荐同行买家，提供转介绍佣金激励。</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brief summary steps for the other 3 stages -->
+        <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+          <!-- 背调客户 summary -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="search-check" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">背调客户</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>查询公司注册信息与信用评级（邓白氏、信用报告）</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>分析客户历史采购记录与付款行为</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>评估客户市场声誉与经营稳定性</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Expanded: 联系/跟进客户 — 邮箱开发信流程 -->
+        <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-6">
+          <div class="mb-5 flex items-center gap-2">
+            <i data-lucide="mail" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+            <h3 class="text-h3 text-[var(--color-foreground)]">联系/跟进客户 — 邮箱开发信流程</h3>
+          </div>
+
+          <!-- Sub-step flow: 生成 → 审核 → 发送 -->
+          <div class="mb-6 flex flex-col gap-4 md:flex-row md:items-center">
+            <!-- Step 1: 生成开发信 -->
+            <div class="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--color-primary)]">
+                  <i data-lucide="bot" class="h-3.5 w-3.5 text-white" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">AI 生成开发信</span>
+              </div>
+              <p class="mb-3 text-body-sm text-[var(--color-muted-foreground)]">基于客户背景（公司规模、采购品类、地区）和产品信息（面料、款式、MOQ、价格区间），自动生成个性化英文开发信，支持单个生成和批量生成两种模式。</p>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="file-text" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">单个生成：逐客户定制，匹配客户采购偏好与产品卖点</span>
+                </div>
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="files" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">批量生成：导入客户列表（CSV/Excel），一键生成全部开发信草稿</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex items-center justify-center">
+              <i data-lucide="arrow-right" class="h-5 w-5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+            </div>
+
+            <!-- Step 2: 审核编辑 -->
+            <div class="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--state-warning)]">
+                  <i data-lucide="pencil" class="h-3.5 w-3.5 text-white" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">审核 & 编辑</span>
+              </div>
+              <p class="mb-3 text-body-sm text-[var(--color-muted-foreground)]">逐封审核 AI 生成内容，核对客户名称、产品规格、报价数据和语法表达，必要时手动调整措辞和语气。</p>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="check-circle" class="h-3.5 w-3.5 text-[var(--state-success)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">审核通过：内容无误，可直接发送</span>
+                </div>
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="edit-3" class="h-3.5 w-3.5 text-[var(--state-warning)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">编辑修改：调整措辞、补充产品细节、优化报价信息</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="flex items-center justify-center">
+              <i data-lucide="arrow-right" class="h-5 w-5 text-[var(--color-muted-foreground)]" style="stroke-width:1.5"></i>
+            </div>
+
+            <!-- Step 3: 发送 -->
+            <div class="flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+              <div class="mb-2 flex items-center gap-2">
+                <div class="flex h-6 w-6 items-center justify-center rounded bg-[var(--state-success)]">
+                  <i data-lucide="send" class="h-3.5 w-3.5 text-white" style="stroke-width:1.5"></i>
+                </div>
+                <span class="text-h4 text-[var(--color-foreground)]">确定发送</span>
+              </div>
+              <p class="mb-3 text-body-sm text-[var(--color-muted-foreground)]">确认无误后，通过邮箱 SMTP 或第三方邮件服务（Mailchimp、SendGrid）发送开发信，记录发送状态与后续跟进时间。</p>
+              <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="send-horizontal" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">单封发送：高价值客户单独发送，支持个性化签名</span>
+                </div>
+                <div class="flex items-center gap-2 rounded bg-[var(--color-card)] px-3 py-2 text-caption">
+                  <i data-lucide="send-to-back" class="h-3.5 w-3.5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+                  <span class="text-[var(--color-foreground)]">批量发送：审核通过后一键群发，自动记录跟进日志</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Template library hint -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-muted)] p-4">
+            <div class="flex items-start gap-3">
+              <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="library" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <div>
+                <div class="mb-1 flex items-center gap-2">
+                  <span class="text-h4 text-[var(--color-foreground)]">开发信模板库</span>
+                  <span class="rounded-sm bg-[var(--color-primary-50)] px-1.5 py-0.5 text-caption font-medium text-[var(--color-primary)]">推荐</span>
+                </div>
+                <div class="grid grid-cols-1 gap-2 md:grid-cols-3">
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>初次开发信 — 自我介绍 + 产品亮点 + CTA</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>跟进邮件 — 新品推荐 + 上次沟通回顾</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>报价邮件 — 详细报价单 + 样品政策说明</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>展会后续 — 感谢见面 + 产品资料 + 下一步安排</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>节日问候 — 节日祝福 + 轻量产品推荐</span>
+                  </div>
+                  <div class="flex items-center gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                    <i data-lucide="dot" class="h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                    <span>催单邮件 — 明确截止时间 + 限时优惠</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+          <!-- 交付 summary -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="package-check" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">交付</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>签订合同、确认付款方式（T/T、L/C）</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>安排生产排期、质检与跨境物流发货</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>提供报关单证、售后跟进与客户回访</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Section 2: 小红书运营 · 种草带货 ============ -->
+      <section class="mb-8">
+        <div class="mb-5 flex items-center gap-3">
+          <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+            <i data-lucide="book-open" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+          </div>
+          <div>
+            <h2 class="text-h2 text-[var(--color-foreground)]">小红书运营 · 种草带货</h2>
+            <p class="text-caption">内容电商 · 自营 · 季度迭代</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <!-- 选题策划 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="lightbulb" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">选题策划</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>分析热门话题与竞品内容策略</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>制定每周选题日历与关键词布局</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>拍摄素材并撰写种草文案</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 笔记发布 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="send" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">笔记发布</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>优化标题、封面与标签组合</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>定时发布并监控首小时互动数据</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>评论区维护与粉丝互动引导</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 达人合作 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="handshake" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">达人合作</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>筛选匹配的垂类达人并建立合作</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>寄送样品、沟通 brief 与内容审核</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>追踪达人笔记发布效果与佣金结算</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 转化复盘 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="trending-up" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">转化复盘</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>统计曝光、点击、收藏与转化漏斗</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>复盘爆款笔记成功要素并复用</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>调整下周选题策略与投放预算</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Section 3: 抖音韩漫动漫短视频连续剧 ============ -->
+      <section class="mb-8">
+        <div class="mb-5 flex items-center gap-3">
+          <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+            <i data-lucide="clapperboard" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+          </div>
+          <div>
+            <h2 class="text-h2 text-[var(--color-foreground)]">抖音韩漫动漫短视频连续剧</h2>
+            <p class="text-caption">短视频 · 剪辑发布 · 每周更新</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <!-- 素材获取 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="download" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">素材获取</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>从韩漫平台获取授权素材资源</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>筛选高热度漫画章节与关键画面</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>整理素材库并按剧情线分类归档</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 剪辑配音 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="scissors" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">剪辑配音</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>剪辑漫画画面为连续剧式短视频</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>配音旁白、添加背景音乐与字幕</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>添加转场特效、封面与片尾引导</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 连载排期 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="calendar-range" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">连载排期</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>制定每周连载发布计划与集数安排</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>预告下一集剧情，维持粉丝追更热度</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>管理素材库存，确保连载不断更</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 平台分发 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="share-2" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">平台分发</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>同步分发至抖音、快手、B站等多平台</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>优化各平台标题、标签与发布时间</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>监控各平台播放量、完播率与涨粉数据</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Section 4: 数据分析 ============ -->
+      <section class="mb-8">
+        <div class="mb-5 flex items-center gap-3">
+          <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+            <i data-lucide="bar-chart-3" class="h-5 w-5 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+          </div>
+          <div>
+            <h2 class="text-h2 text-[var(--color-foreground)]">数据分析</h2>
+            <p class="text-caption">经营分析 · 自营 · 已完成 7/25</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <!-- 数据清洗 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="filter" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">数据清洗</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>从各业务系统导出原始数据</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>去除重复、异常值与缺失值处理</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>统一数据格式并建立数据字典</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 建模分析 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="brain-circuit" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">建模分析</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>构建销售漏斗、客户分层与转化模型</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>对比各业务线 ROI 与趋势分析</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>识别关键增长驱动因素与瓶颈</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 可视化 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="pie-chart" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">可视化</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>制作仪表盘 KPI 看板与趋势图</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>按业务线拆分收入、成本与利润图表</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>标注关键节点与异常预警阈值</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 输出周报 -->
+          <div class="rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] p-5">
+            <div class="mb-3 flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-md bg-[var(--color-primary-50)]">
+                <i data-lucide="file-text" class="h-4 w-4 text-[var(--color-primary)]" style="stroke-width:1.5"></i>
+              </div>
+              <span class="text-h4 text-[var(--color-foreground)]">输出周报</span>
+            </div>
+            <ul class="space-y-2">
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>汇总本周各业务线核心经营指标</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>撰写结论、建议与下周行动建议</span>
+              </li>
+              <li class="flex items-start gap-2 text-body-sm text-[var(--color-muted-foreground)]">
+                <i data-lucide="dot" class="mt-1 h-3 w-3 flex-shrink-0 text-[var(--color-primary)]" style="stroke-width:2.5"></i>
+                <span>生成 PDF 周报并通过邮件分发</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>if(window.lucide){lucide.createIcons();}</script>
+    <style>
+      nav a[data-active="true"]{background-color:var(--color-primary-700);color:#fff}
+      nav a[data-active="true"]::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--color-primary-400)}
+    </style>
+</body>
+</html>
